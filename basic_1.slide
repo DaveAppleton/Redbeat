@@ -1,0 +1,234 @@
+Introduction to Go
+Getting started....
+18 Feb 2021
+
+Dave Appleton
+Coder, NightOwl and Blockchain Consultant
+calistralabs@gmail.com
+https://sorry.af
+Twitter : @AppletonDave
+
+
+Note : Friday & Monday will be from 12:00 to 4 p.m.
+
+* Where we are going on this two day session
+
+- Writing and running your first program from a web browser
+- Some of the best online resources
+- Go Language Basics
+- Installing Go
+- Some suitable Editors / IDE
+- Writing a simple application server
+- Using the example to introduce a few more concepts
+
+we need a communications group...
+
+* Why am I here ?
+
+- To share my ideas on how to learn
+- To share what excites me about the go programming language
+- To inspire some of you to consider programming in go
+- To explain why being a go developer puts you in a special place
+- To get you coding something cool
+
+* About me 
+
+.image images/memed.jpeg 200 _
+
+- Englishman living in Southeast Asia for 39 years
+- Programming since 1968
+- background in electronics, instrumentation, machine vision
+- Go coder since 2013
+- Blockchain developer since 2014
+- Former lead developer, now consultant to HelloGold, Malaysia
+- Blockchain Consultant with various projects.
+
+* My opinionated thoughts on how to learn
+
+1. listen and observe
+2. ask questions
+3. relate the answers to your experience
+4. try things out
+5. discuss
+6. teach others
+7. Go To 1
+
+* Algorithms + Data Structures = Programs
+
+.image images/rendang.png 450 _
+
+* Let's Hit the ground running at golang.org
+
+.image images/golang_org.png 400 _
+
+hit the link to the go playground
+(come back to download later)
+
+* what is go ?
+
+- systems programming language
+- developed at Google to reduce the maintenance burden
+- compiled language
+- fast
+- small footprint
+- excellent toolset
+- powerful standard library
+
+* Who Uses Go
+
+- Google
+- Docker
+- Kubernetes
+- Cloudflare
+- Uber
+- Grab
+- Gojek
+- Ethereum, Stellar and many other blockchains
+- Me
+
+* The Go playground
+
+.image images/play000.png 400 _
+
+.image images/play000B.png 100 _
+
+
+* Let's mess with it
+
+.image images/play001.png 400 _
+
+.image images/play001B.png 100 _
+
+* Let's mess with it a bit
+
+.play -edit basic_1/code001.go
+
+1. package
+2. import
+3. func main()
+4. blocks
+5. variables
+6. use of library functions
+7. try changing the name and age
+8. try swapping the values in name and age (name := 16, age := Dave)
+
+* Let's mess some more
+
+This won't work. Let's Fix it.
+
+.play -edit basic_1/code002.go
+
+- types
+- :=
+- decimals
+
+* so what happened?
+
+Go is a strictly typed language with tweaks to make it usable.
+
+This time we will force the type
+
+.play -edit basic_1/code003.go
+
+* SOME ONLINE RESOURCES
+
+.image images/spacegopher.jpeg
+
+1. https://golang.org/ (Download Go here)
+
+2. https://gobyexample.com/
+
+3. https://tour.golang.org/welcome
+
+4. https:// play.golang.org
+
+* MORE ONLINE RESOURCES 
+
+.image images/gophersonline.jpeg
+
+5. https://www.practical-go-lessons.com/
+
+6. https://docs.microsoft.com/en-us/learn/paths/go-first-steps/
+
+7. https://dave.cheney.net/
+
+8. https://ardanlabs.com
+
+9. https://bitfieldconsulting.com/
+
+* Some Go Basics : data types
+# TYPES
+.play -edit basic_1/code004.go
+
+- numeric
+- boolean
+- string
+
+* Some Go Basics : advanced data types : structures
+# TYPES
+.play -edit basic_1/code005.go
+
+- structures
+
+* Some Go Basics : advanced data types : arrays
+# TYPES
+.play -edit basic_1/code006.go
+
+- arrays
+
+* Some Go Basics : advanced data types : maps
+.play -edit basic_1/code007.go
+
+- maps
+
+* program flow : if
+
+.play -edit basic_1/code008.go
+
+- if
+* program flow : for
+
+.play -edit basic_1/code009.go
+
+- for
+
+* question time (hold in there)
+
+Tell me what you did today.
+
+(this is where I pick on a poor student)
+
+* program design : Top down programming
+
+.image images/top-down-approach.jpeg
+
+
+
+* program design : functions
+
+.play -edit basic_1/code010.go
+
+* program design : functions (and some calculations at last)
+
+.play -edit basic_1/code011.go
+
+* Installing Go
+
+There is no way that I can cover the details here let's hop out...
+
+.link https://www.practical-go-lessons.com/chap-4-setup-your-dev-environment
+
+But use an installer if possible.....
+
+* writing code 
+
+.image images/macvim.png 150 _
+.image images/vscode.png 150 _
+.image images/vimok.png 200 _ 
+
+* What is an IDE ?
+
+.image images/ide.png 400 _
+
+Demonstration : VS Code 
+
