@@ -10,7 +10,7 @@ func main() {
 		z    bool
 		name string
 	)
-	j = 15.6
+	j = 15
 	z = j > 20
 	name = "charlie"
 	fmt.Println(j, z, name)
