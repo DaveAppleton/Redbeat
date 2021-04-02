@@ -1,0 +1,259 @@
+Introduction to Go
+19 Feb 2021
+
+Dave Appleton
+Blockchain Consultant
+calistralabs@gmail.com
+https://sorry.af
+Twitter : @AppletonDave
+
+* random recap : Go is a compiled language
+
+The compiler coverts the code into a language that the machine can understand before it is used.
+
+.image images/compiled.png
+
+* random recap : variable types
+
+- In Go, reach piece of data has a type.
+- You need to store information in a variable of the correct type
+
+.image images/coffee.jpeg
+.image images/sackofrice.jpeg
+
+* recap variable declaration
+
+   var(
+       myName   string
+       myAge    int
+   )
+
+- we declare TWO variables
+
+- one has the identifier `myName` the other `myAge`
+
+- `myName` is a string, can contain text
+- `myAge` is an integer, can only hold numbers 
+
+* numbers
+
+- unsigned integers
+   uint8 uint16 uint32 uint64 uint
+- signed integers
+   int8 int16 int32 int64 int
+- fractions
+   float32  float64
+- big numbers
+   big.Int big.Float
+- complex numbers
+   complex64  complex128
+   (please don't ask. DYOR)
+
+* numeric operators
+
+- now we have numbers what can we do with them ?
+.play -edit basic_2/code106.go
+
+* other types
+- bool
+    true /false
+    a == b 
+    a > b
+    err != nil
+- string
+    "Dave"
+    "ٱلسَّلَامُ عَلَيْكُمْ"
+- rune
+    'R'
+    '😱'
+    '郭'
+
+* default values
+
+- numbers default to 0
+- booleans default to false
+- strings default to empty
+- more complex stuff could default to nil
+
+* and a special one
+- enum
+    // used when we need separate values but without numeric meaning
+
+    type Direction int
+    const (
+        North Direction = iota
+        South 
+        East
+        West
+    )
+    var myDirection Direction
+    myDirection = North 
+
+* composite type
+
+- arrays
+    [ "myHouse","yourHouse","hisHouse" ]
+          0          1           2
+    -----------------------------------> 3 elements
+
+- structures
+    var myData {
+        Name string
+        Age  int
+    }
+
+- maps
+    nickNames := make(map[string] string)
+    nickNames["Tom"] = "The Singer"
+    nickNamed["Elvis"] = "The King" 
+
+* Constants
+
+- untyped constant
+    const myAge = 16
+- typed constant
+    const myAge int = 16
+
+* Constants
+
+.play -edit basic_2/code100.go
+
+* flow control - for loop
+
+.play -edit basic_2/code101.go
+   initial condition ; terminating condition (bool); what to do after each loop
+* flow control if / else 
+
+.play -edit basic_2/code104.go
+
+- if <bool> ...
+
+- the else is optional
+
+* flow control switch
+
+.play -edit basic_2/code103.go
+
+* error handling
+
+- Many functions return an error variable
+
+.image images/listenandserve.png 150 _
+
+- this allows you to define your own error handler
+- handle directly or pass to calling function depending on severity
+
+  err := http.ListenAndServer(":8003",nil)
+  if err != nil {
+      log.Println("ListenAndServe",err)
+      os.Exit(1)
+  }
+
+* Everything OK ?
+
+This is where you are supposed to talk to me.
+
+* Progress Review
+
+- do we have Go installed?
+- do we have an IDE installed?
+- is it VS Code?
+
+Set GOPATH
+
+
+* The Go plugin
+
+- Install Golang Support
+
+.image images/goplugin.png 200 _
+
+* Test Golang Support
+
+.image images/code_001.png
+
+observe syntax highlighting, the knowledge that we have a block
+
+* let's try a small project
+
+- We are going to analyse a data file.
+- I will guide you to a site
+- You will download some data
+
+# We are going to download some data and analyse it.
+# https://etherscan.io/token/0x97ca7fe0b0288f5eb85f386fed876618fb9b8ab8
+# select "Download CSV Data"
+
+select a couple of days in the last week. You will get a CSV file with seven columns.
+
+We are going to 
+1. read in the file 
+2. count the number of lines have a certain string in a specific column.
+3. classify the result by whether the last column holds a 2, 3 or 4 digit number
+4. Display those results
+
+* Structure the program
+
+break it down
+
+1) read a CSV file
+2) check each line for the common string
+3) increment a counter depending on the length of the last column
+4) print the result
+
+* resource
+
+- find the CSV package on golang.org
+    (encoding/csv)
+
+- Lets play with the example to read csv data
+
+* newreader
+
+.image images/newreader.png 200 _
+
+* readall
+
+.image images/readall.png 200 _
+
+* modify the example to read a file
+
+.play basic_2/code105.go
+
+* find the code here
+
+https://gist.github.com/DaveAppleton/6fa015c75629d8ce2ee036e9e276f6ce
+
+* second project
+
+we will build a simple web application server (with special functions to be decided)
+
+- net/http package
+- http.HandleFunc
+- http.ListenAndServe
+
+* HandleFunc
+
+.image images/handlefunc.png 150 _
+
+* ListenAndServe
+
+.image images/listenandserve.png 150 _
+
+* ServeFile
+
+.image images/servefile.png 150 _
+
+* source
+
+https://gist.github.com/DaveAppleton/bfbe75c3cb98587768e5d6aae5dc925c
+
+* GO interest groups
+
+KL :
+
+https://www.facebook.com/groups/mygolang
+
+SG :
+
+https://www.facebook.com/groups/golang.sg
