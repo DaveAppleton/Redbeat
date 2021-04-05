@@ -1,9 +1,250 @@
-Introduction to Go
-NonZero++
-22 Feb 2021
+Getting Stuff Done with Go
+5 April 2021
 
 Dave Appleton
-Blockchain Consultant
+Coder, NightOwl and Blockchain Consultant
 calistralabs@gmail.com
 https://sorry.af
-Twitter : @AppletonDave
+Twitter  @AppletonDave
+
+* Where we are going on this four day session
+
+- we will be carrying on from the starter course held last week
+- we will cover a lot of things that make go a really powerful solution
+
+https://t.me/joinchat/k94BwULd8zpmODRl
+
+* About me 
+
+.image images/memed.jpeg 200 _
+
+- Englishman living in Southeast Asia for 39 years
+- Programming since 1968
+- background in electronics, instrumentation, machine vision
+- Go coder since 2013
+- Blockchain developer since 2014
+- Former lead developer, now consultant to HelloGold, Malaysia
+- Blockchain Consultant with various projects.
+
+* My opinionated thoughts on how to learn
+
+1. listen and observe
+2. ask questions
+3. relate the answers to your experience
+4. try things out
+5. discuss
+6. teach others
+7. Go To 1
+
+* Stolen Quotes
+
+"And the difference between juniors+seniors to those who are in-between, is the confidence to ask "dumb" questions." - Natalie Pistunovich
+
+"If you don’t make mistakes, you’re not working on hard enough problems." - Frank Wilczek
+
+"Don’t cling to a mistake because you spent so much time making it." - Aubrey de Grey
+
+* Some projects using GO
+
+- Docker
+- Kubernetes
+- Uber
+- Grab
+- Gojek
+- Netflix
+- Dropbox
+- Twitter
+- eBay
+- https://github.com/golang/go/wiki/Projects
+
+* what is go ?
+
+- systems programming language
+- developed at Google to reduce the maintenance burden
+- compiled language
+- fast
+- small footprint
+- excellent toolset
+- powerful standard library
+
+* passing by value and by reference
+
+.play -edit power_1/code199.go
+
+* uninitialised variables
+
+Numerics initialise to Zero
+
+Booleans initialise to false
+
+Strings initialise to EMPTY
+
+Ponters & complex stuff initialise to NIL
+
+* The strictness of types
+
+.play -edit power_1/code200.go
+
+* Types
+
+Go does not allow different types to cross assign
+type typeA int 
+type typeB int 
+
+var aa typeA = 5
+var bb typeB = aa // fails
+var bb typeB = typeB(aa) // works
+
+conversion  e.g.  a := uint16(0)
+
+* GO catches bugs at compile time
+
+.play power_1/badtype.go
+
+* Running and Building
+
+- go run .
+- go run <file list>
+
+- go build
+- go build -o mycode
+- go build -o mycode <file list>
+
+Target a foreign system... (e.g. KovanPlay - one of my servers)
+
+- GOOS=linux GOARCH=amd64 go build -o mycode.linux
+- scp mycode.linux KovanPlay:
+- ssh KovanPlay
+- ./mycode.linux
+
+* so let's start with a bang 
+
+.play -edit power_1/code201.go
+
+* What happened there ?
+
+- The power of the standard libraries
+
+- net/http library covers code for calling web servers and for creating them.
+- we attached a hook to the standard router to a function
+- we created a listener for the standard router
+
+
+Was it supposed to harder than that?
+
+* We can create a function to call that server
+(remember to kill server)
+
+.play -edit power_1/code202.go
+
+* A Router only needs a struct and ONE function
+
+.play -edit power_1/code203.go 
+
+each request is created in a different goroutine *...
+
+   * WTF is a goroutine? 
+          .....stay tuned
+
+* But can be as complex as you like...
+
+.play -edit power_1/code204.go 
+
+* help on previous slide
+
+test the [[http://127.0.0.1:8080/greet/tiger][greet function (http://127.0.0.1:8080/greet/tiger)]]
+
+test the [[http://127.0.0.1:8080/inc/images/coffee.jpeg][inc function (http://127.0.0.1:8080/inc/images/coffee.jpeg)]]
+
+* Simple JSON encoding 
+
+.play -edit power_1/code205.go 
+
+* Simple JSON decoding
+
+.play  -edit power_1/code206.go 
+
+* JSON Encoding on a web server
+
+.play -edit power_1/code207.go 
+
+* JSON Decoding on a web server
+
+Use POSTMAN to test
+
+.play  -edit power_1/code208.go  /start OMIT/,/end OMIT/
+
+Only works if the JSON is predictable.
+
+Hard to debug.
+
+* Calling other API's
+
+- For this I need a slow server. Let's write one delivering this Gold Price data
+
+.code  power_1/code209.go /start OMIT/,/end OMIT/
+
+* delay is set...
+
+.play  power_1/code209.go /end OMIT/,/fin OMIT/
+
+We will run this in the background
+
+* Dealing with slow servers
+
+Let's get the gold price from the previous server
+
+The structures are nested
+
+.code power_1/code210.go /start OMIT/,/end OMIT/
+
+* Use an http client with Timeout
+
+.play -edit power_1/code210.go /start code OMIT/,/end code OMIT/
+
+* use the context package
+
+.play -edit power_1/code211.go /start code OMIT/,/end code OMIT/
+
+
+* but what happens if we call an endpoint and it fails to respond in time ?
+
+- context package (2017 +) provides a common approach to timeouts and cancellation of async events.
+
+   ctx, cancel := context.WithTimeout(context.Background(), 60 * time.Second)
+   defer cancel()
+
+The context package provides a rich way of passing deadlines to time consuming I/O commands or even cancelling from a different thread should they no longer be needed.
+
+As you saw in the previous example, you can cascade contexts.
+
+* Concurrency
+
+- multiple threads
+
+.play -edit power_1/code212.go
+
+* Race conditions
+
+.play -edit power_1/code213.go /start OMIT/,/end OMIT/
+
+* Race detection
+
+.code -edit power_1/code213.go /race start OMIT/,/race end OMIT/
+
+* Atomic conditions (sync/atomic)
+
+.play -edit power_1/code214.go /start OMIT/,/end OMIT/
+
+* Race detection
+
+.code -edit power_1/code214.go /race start OMIT/,/race end OMIT/
+
+* Mutex Lock / Unlock
+
+.play -edit power_1/code215.go /start OMIT/,/end OMIT/
+
+
+
+
+
