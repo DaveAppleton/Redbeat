@@ -368,3 +368,12 @@ Now we have the code, we can run it.
     ~/Documents/training/Redbeat/power_1_project (main ✘)✹✭ ᐅ go run .
     weight in grammes 750
     ~/Documents/training/Redbeat/power_1_project (main ✘)✹✭ ᐅ 
+
+    You will notice that the weight in ounces was not displayed !
+    (this was the whole point of the project)
+
+    Where is it?
+
+    check the log file 
+
+      2021/04/06 06:46:09 weight in ounces 26.785715
