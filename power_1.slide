@@ -178,6 +178,12 @@ Only works if the JSON is predictable.
 
 Hard to debug.
 
+* Extra stuff WRT decoding
+
+Nesting / capitalisation 
+
+.play -edit power_1/code207A.go /start OMIT/,/end OMIT/
+
 * Calling other API's
 
 - For this I need a slow server. Let's write one delivering this Gold Price data
