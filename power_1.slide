@@ -250,7 +250,121 @@ As you saw in the previous example, you can cascade contexts.
 
 .play -edit power_1/code215.go /start OMIT/,/end OMIT/
 
+* Creating a package to convert grammes to ounces
+
+- create a folder for package (can be subfolder of main project)
+- start code with package name NOT `main`
+- start functions to be exported with Capital Letter
+- add a comment that starts with the function name
+- do NOT include a main() function
+
+.code power_1_project/grams2ounces/g2o.go
+ 
+* Testing your package
+
+- Go unit tests are an integral part of the go system
+- test files end with _test.go
+- test functions start : func Test<something>
+
+.code  power_1_project/grams2ounces/g2o_test.go
+
+.image images/testpass.png 80 _
+
+* if we fudge the values so it fails
+
+.image images/testincode2.png 170 _
+
+.image images/testfail.png 80 _
+
+* Go Modules
+
+- Help building software that can be shared knowing that everybody will have the same version
+- Links project folders and external folders
+- Make writing Go a lot easier
+
+If your code is destined for github
+
+  $ touch main.go
+  $ go mod init github.com/myAccount/myRepo
+
+Otherwise (like in this case)
+
+  $ touch main.go
+  $ go mod init af.sorry/power_1_test   (my domain in reverse followed by project)
+
+* Proposed code layout 
+
+- package af.sorry.power_1_test
+
+.image images/projectlayout.png 200 _
+
+- we will have our sub package grams2ounces
+
+* Write code and import remote Packages
+
+- let's import and use viper and lumberjack
+- we will also use our self-defined package
 
 
+.code power_1_project/main.go /mid OMIT/,/end OMIT/
+
+* Have a look at initViper
+
+- I keep both initViper and the code to create a log from a file specified in viper in my snippets
+
+.code power_1_project/main.go /start OMIT/,/mid OMIT/
+
+* Let VSCode do most of the import work
+
+- we have written the code that uses the package
+- vscode will help to add some of the packages to the import list if it can
+- you will probably need to add the new package that is inside the project
+
+.code power_1_project/main.go /origin OMIT/,/start OMIT/
+
+* When you have written the code
+
+Import all the modules that you need for your code by typing
+
+  $ go mod tidy
+
+.image images/gomodtidy.png 120 _
+
+This pulls all the external code into the pkg store for when you need to build and run the code.
+
+* viper
+
+Viper is a configuration management on steroids. Written by Steve Francia, it allows you to create gonfiguration paths in which you can have multiple config files
+
+initial value :
+
+  {
+    "WEIGHT_IN_GRAMMES" : 750,
+    "log": "g2o.log"
+  }
+
+(I understand that it doesn't make sense to have the input param in the config file but hey, it's a demo)
+
+* lumberjack
+
+Lumberjack is a powerful log management library that redirects log statements to files but on top of that manages
+
+- log rotation
+- max backups
+- max file size
+- deletion of log files if there are too many over a certain age.
+
+	log.SetOutput(&lumberjack.Logger{
+		Filename:   "./logs/" + logName,
+		MaxSize:    500, // megabytes
+		MaxBackups: 3,
+		MaxAge:     28, //days
+	})
 
 
+* Running it
+Now we have the code, we can run it.
+
+    ~/Documents/training/Redbeat/power_1_project (main ✘)✹✭ ᐅ go run .
+    weight in grammes 750
+    ~/Documents/training/Redbeat/power_1_project (main ✘)✹✭ ᐅ 

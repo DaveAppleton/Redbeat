@@ -8,23 +8,21 @@ import (
 // start OMIT
 var counter int
 
-func increment() {
+func increment(tim int) {
 	for {
-		counter++
-		time.Sleep(100 * time.Millisecond)
-	}
-}
+		a := counter
+		time.Sleep(time.Duration(tim) * time.Millisecond)
 
-func display() {
-	for {
-		fmt.Println(counter)
-		time.Sleep(90 * time.Millisecond)
+		fmt.Println(">", a)
+
+		counter = a + 1
 	}
 }
 
 func main() {
-	go increment()
-	go display()
+	go increment(100)
+
+	go increment(200)
 	time.Sleep(time.Second * 20)
 }
 

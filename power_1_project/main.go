@@ -1,3 +1,4 @@
+// origin OMIT
 package main
 
 import (
@@ -10,6 +11,7 @@ import (
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
+// start OMIT
 func initViper() {
 	viper.SetConfigFile("./config.json")
 	if err := viper.ReadInConfig(); err != nil {
@@ -22,6 +24,7 @@ func initViper() {
 	})
 }
 
+// mid OMIT
 func main() {
 	initViper()
 	logName := viper.GetString("log")
@@ -32,9 +35,8 @@ func main() {
 		MaxAge:     28, //days
 	})
 	weightInGrammes := viper.GetInt("WEIGHT_IN_GRAMMES")
-
 	fmt.Println("weight in grammes", weightInGrammes)
-
 	log.Println("weight in ounces", grams2ounces.GramsToOunces(weightInGrammes))
-
 }
+
+// end OMIT
