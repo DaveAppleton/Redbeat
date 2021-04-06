@@ -1,0 +1,199 @@
+Let's Go Baby
+23 Feb 2021
+
+Dave Appleton
+Blockchain Consultant
+calistralabs@gmail.com
+https://sorry.af
+Twitter : @AppletonDave
+
+* improving the previous project
+
+- makes NO sense getting the weight to convert from a config file
+- let's get from the command line
+
+Standard Library : flag module
+
+	var weightInGrammes int
+	flag.IntVar(&weightInGrammes, "weight_in_grammes", -1, "weight to convert to ounces")
+	flag.Parse()
+	if weightInGrammes == -1 {
+		flag.Usage()
+		os.Exit(1)
+	}
+
+* build and test
+
+  ᐅ go build
+  
+creates af.sorry.power_1_test
+
+  ᐅ ./af.sorry.power_1_test 
+
+  Usage of ./af.sorry.power_1_test:
+  -weight_in_grammes int
+        weight to convert to ounces (default -1)
+
+let's give it a parameter
+
+  ᐅ ./af.sorry.power_1_test -weight_in_grammes 76
+  weight in grammes 76
+  weight in ounces 2.7142856
+
+🔥
+
+* last work on flags (maybe) 
+
+if you prefer GNU style flags 
+
+  ᐅ ./af.sorry.power_1_test --weight_in_grammes 76
+
+you can use the pflag from spf13
+
+  import flag "github.com/spf13/pflag"
+
+* communicating between threads
+
+- the channel is a data stream 
+- it can be used to pass information between threads
+- create a channel using make
+
+  ch := make(chan int)
+
+- or create a buffered channel
+
+  ch := make(chan int,10)
+
+* a channel source
+
+Write into a channel Using
+
+  ch <- data
+
+.code power_2/code300.go /source OMIT/,/sink OMIT/
+
+* a channel sink
+
+Read from a channel by assigning or otherwise consuming the data
+
+  n := <-ch
+or
+
+  j = 5 * (<- ch)
+
+.code power_2/code300.go /sink OMIT/,/main OMIT/
+
+* and the main program
+
+Make the channel with a buffer of 5 ints
+
+  ch := make(chan int, 5)
+
+create two goroutines and pass the channel to each
+
+.code power_2/code300.go /main OMIT/,/end OMIT/
+
+Q) what would happen if only one goroutine was active?
+
+* Now let's see it in action
+
+.play -edit power_2/code300.go /source OMIT/,/end OMIT/
+
+* How to make a channel non-blocking 
+
+Every time we have read from a channel, it has blocked the thread.
+
+e.g.
+
+   fmt.Println(<- ch)
+
+We can use a select command to take one of multiple paths whichever happens first
+
+  select {
+    case j := <- ch1:
+       .....
+    case k := <- ch2:
+       .....
+  }
+
+* so given this reusable goroutine
+
+- loop through 20 numbers
+- print the loop identifier and the number 
+- push the number to a channel 
+- wait
+
+
+.code power_2/code301.go /start OMIT/,/main OMIT/
+
+* using the loop twice, we use a select..
+
+- to handle whichever channel fulfils first
+
+.play -edit power_2/code301.go /main OMIT/,/end OMIT/
+
+- and exit when both have returned 19 
+
+* but we are still (kind of) blocking
+
+.play -edit power_2/code302.go /main OMIT/,/end OMIT/
+
+* a more real life example?
+
+We often don't know how many results we are supposed to get...
+
+the source can signify there is no more data by closing the channel
+
+  close(ch)
+
+then we replace 
+
+  data := <- ch
+
+with 
+
+  data,ok := <- ch
+
+The channel will return ok == false when the source closes the channel.
+
+* previous example with closing channels
+
+The goroutine 
+
+.code power_2/code303.go /start OMIT/,/main OMIT/
+
+* the main code (detection of closed channel)
+
+.play -edit power_2/code303.go /main OMIT/,/end OMIT/
+
+* what if you close a channel with data in it?
+
+.play -edit power_2/code304.go 
+
+* using timeouts (part 1)
+
+This function gets slower and sloooower
+
+.play -edit power_2/code305.go /start OMIT/,/main OMIT/
+
+* using timeouts part II (the movie)
+
+.play -edit power_2/code305.go /main OMIT/,/end OMIT/
+
+* Timer events
+
+.play -edit power_2/code306.go  /main OMIT/,/end OMIT/
+
+* How fast can you count ?
+
+.play -edit power_2/code306.go  /main OMIT/,/end OMIT/
+
+* I need arrays 
+
+- fixed length collection of items
+
+* and a slice to go with that
+
+- dynamic lenngth collection of items
+- can be allocated with capacity or without
+
