@@ -186,7 +186,7 @@ This function gets slower and sloooower
 
 * How fast can you count ?
 
-.play -edit power_2/code306.go  /main OMIT/,/end OMIT/
+.play -edit power_2/code307.go  /main OMIT/,/end OMIT/
 
 * I need arrays 
 
