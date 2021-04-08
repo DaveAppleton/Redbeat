@@ -1,0 +1,7 @@
+{
+    "data" : "malarkey",
+    "parents" : {
+        "tom" : { "age" : 42, "job" : "bricklayer"},
+        "mary" : {"age" : 16, "job" : "supervisor"}
+    }
+}

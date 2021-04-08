@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Gas Prices</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Gas Prices</h2>
+        <div class="row">
+            <!-- //start  -->
+            <div class="col-sm-3">
+                <div class="well well-lg">
+                    
+                    <div class="form-group">
+                        <label for="rapid">Rapid :</label>
+                        <input type="text" class="form-control" id="rapid" name="rapid" readonly value="{{.Rapid}} GWei">
+                    </div>
+                </div>
+                <p>&nbsp;</p>
+            </div>
+            <!-- //end  -->
+            <div class="col-sm-3">
+                <div class="well well-lg">
+                    
+                    <div class="form-group">
+                        <label for="fast">Fast :</label>
+                        <input type="text" class="form-control" id="fast" name="fast" readonly value="{{.Fast}} GWei">
+                     </div>
+                </div>
+                <p>&nbsp;</p>
+            </div>
+            <div class="col-sm-3">
+                <div class="well well-lg">
+                    
+                    <div class="form-group">
+                        <label for="standard">Standard :</label>
+                        <input type="text" class="form-control" id="standard" name="standard" readonly value="{{.Standard}} GWei">
+                    </div>
+                </div>
+                <p>&nbsp;</p>
+            </div>
+            <div class="col-sm-3">
+                <div class="well well-lg">
+                    <div class="form-group">
+                        <label for="slow">Slow :</label>
+                        <input type="text" class="form-control" id="slow" name="slow" readonly value="{{.Slow}} GWei">
+                    </div>
+                </div>
+                <p>&nbsp;</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+ 

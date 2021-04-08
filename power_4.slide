@@ -1,0 +1,270 @@
+Going Going Gone
+8 April 2021
+
+Dave Appleton
+Blockchain Consultant
+calistralabs@gmail.com
+https://sorry.af
+Twitter : @AppletonDave
+
+* Going Going Gone!
+
+Let's write another module to consume an API
+
+https://gasnow.org
+
+docs at https://taichi.network/
+
+call is 
+
+  GET https://www.gasnow.org/api/v3/gas/price?utm_source=:YourAPPName
+
+response is 
+
+  {
+    "code": 200,
+    "data": {
+      "rapid": 180132000000, // wei
+      "fast": 177000000000,
+      "slow": 150000000000,
+      "standard": 109000001459,
+      "timestamp": 1598434638872
+    }
+  }
+
+* gasnow : the data
+
+.code power_4_project/gasnow/gasnow.go /gasNowData OMIT/,/gl_start OMIT/
+
+* gasnow : code part I
+
+.code power_4_project/gasnow/gasnow.go /gl_start OMIT/,/gl_mid OMIT/
+
+* gasnow : code part II
+
+.code power_4_project/gasnow/gasnow.go /gl_mid OMIT/,/gl_end OMIT/
+
+
+* Webserver : data loop
+
+.code power_4_project/main.go /start OMIT/,/p1 OMIT/
+
+* Webserver page server
+
+.code power_4_project/main.go /p1 OMIT/,/p2 OMIT/
+
+* Webserver main code
+
+.code power_4_project/main.go /p3 OMIT/,/end OMIT/
+
+* Templates
+
+.code power_4_project/main.go /template_start OMIT/,/template_end OMIT/
+
+.code power_4_project/files/main.html /start /,/end /
+
+* Loading Templates
+
+Load a Template
+
+  tpl, err := template.Parse(filename) 
+
+get the template at filename and store it in tpl. 
+
+  tpl, err := template.ParseFiles(filenames) 
+
+takes a list of filenames and stores all templates.
+
+each tpl can then be executed to show the template.
+
+* Executing Templates
+
+Execute a Single Template
+
+Once a template has been parsed there are two options to execute them. 
+A single template tpl can be executed using 
+
+  err := tpl.Execute(io.Writer, data). 
+
+The content of tpl will be written to the io.Writer.
+
+Data is an interface passed to the template that will be useable in the template.
+
+* Template Rendering text/template vs html/template
+
+There is text/template and html/template which work slightly differently.
+
+The HTML template renders text as HTML
+
+  <Hello>
+
+becomes
+
+  &lt;Hello&gt;
+
+The text template leaves text unchanged.
+
+  <Hello>
+
+* structs and maps
+
+The HTML template renders structs and maps as usable for javascript
+
+    type Cat struct {
+      Name string
+      Age int
+    }
+
+  kitten := Cat{"Sam", 12}
+
+in a template snippet
+
+  <script>
+     var cat = {{.kitten}} 
+  </script>
+
+would render as
+
+  <script>
+     var cat = {"Name":"Sam", "Age" 12}
+  </script>
+
+* The wedding Part I
+
+.play -edit power_4/code500.go /one OMIT/,/two OMIT/
+
+* The Wedding Part II
+
+.play -edit power_4/code500.go /two OMIT/,/end OMIT/
+
+* Control structures INSIDE the template
+
+given
+
+    type Item struct {
+        Name  string
+        Price int
+    }
+
+    type ViewData struct {
+        Name  string
+        Items []Item
+    }
+
+the template can walk through the array
+
+    {{range .Items}}
+    <div class="item">
+        <h3 class="name">{{.Name}}</h3>
+        <span class="price">${{.Price}}</span>
+    </div>
+    {{end}}
+
+* The Wedding Part III
+
+.play -edit power_4/code501.go /one OMIT/,/two OMIT/
+
+* The Wedding Part IV
+
+.play -edit power_4/code501.go /two OMIT/,/end OMIT/
+
+* Template Variables
+
+If your template changes scope you (e.g inside a range) you lose access to other variables in the main scope.
+
+You can store things in variables to get around that.
+
+  {{$date := .Date}}
+
+and use it later
+
+   {{$date}}
+
+* The Wedding Part V
+
+.play -edit power_4/code502.go /one OMIT/,/two OMIT/
+
+* The Wedding Part VI
+
+.play -edit power_4/code502.go /two OMIT/,/three OMIT/
+
+* Graceful Exits
+
+.play -edit power_4/code503.go  /start OMIT/,/end OMIT/
+
+
+* comparisons
+
+you can compare things in a template
+
+    {{if eq .Name "Dave"}}
+        Dave's Not Here
+    {{end}}
+
+These comparators can be used
+
+    eq Returns the result of arg1 == arg2
+    ne Returns the result of arg1 != arg2
+    lt Returns the result of arg1 < arg2
+    le Returns the result of arg1 <= arg2
+    gt Returns the result of arg1 > arg2
+    ge Returns the result of arg1 >= arg2
+
+* Benchmarking
+
+Benchmarking is done by the testing module
+
+   func BenchmarkSomething(b *testing.B) {
+       // do some init code
+       b.ResetTimer()
+
+       for i := 0; i < b.N ; i++ {
+           // do the thing you want to benchmark
+       }
+   }
+
+* REMEMBER THE FEEDBACK FORM
+
+https://docs.google.com/forms/d/e/
+1FAIpQLSdKBrTjHrCzrRKIkwYauGyd0yLUbbKJI3kWv4smtNOwnenHsg/viewform
+
+.image images/barcode.jpeg 500 _
+
+* Interesting Stuff
+
+You pass a structure into the template, it is referenced as "."
+
+Data elements get referenced from that viewpoint
+
+* zz
+
+
+big int 
+decimal
+reflection (rhombus / HG style)
+Telegram Bot 
+
+Security in Web / Api calls
+
+UTF-8
+
+maps
+deleting keys
+error handling
+sync / waitgroup
+
+
+
+
+
+
+
+
+
+
+
+
+
+data efficiency (copies of data etc)
+
+
